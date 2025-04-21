@@ -1,8 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 
-import { User, Bank } from "@prisma/client";
-
 export default async function Home() {
   const users = await prisma.user.findMany({
     include: {
@@ -12,7 +10,7 @@ export default async function Home() {
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans">
-      {users.map((user: User & { Bank: Bank | null }) => (
+      {users.map((user) => (
         <Card
           key={user.id}
           className="p-6 w-full max-w-md shadow-md"
