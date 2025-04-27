@@ -1,5 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
+// app/page.tsx (Home)
+
+import { UserCard } from "@/components/maker/user-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { prisma } from "@/lib/prisma";
+import { Search } from "lucide-react";
+// ini komponen baru
 
 export default async function Home() {
   const users = await prisma.user.findMany({
@@ -10,34 +16,24 @@ export default async function Home() {
   });
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      {users.map((user) => (
-        <Card
-          key={user.id}
-          className="p-6 w-full max-w-md shadow-md"
-        >
-          <CardContent>
-            <h1 className="text-xl font-bold">{user.nama}</h1>
-            <h1 className="text-lg">{user.nomor}</h1>
-            <h1>{user.Profile?.gender}</h1>
-
-            <div className="mt-4">
-              {user.Bank.length > 0 ? (
-                user.Bank.map((bank) => (
-                  <p
-                    key={bank.id}
-                    className="text-gray-600"
-                  >
-                    {bank.nomor?.toNumber()}
-                  </p>
-                ))
-              ) : (
-                <p className="text-gray-400 italic">Tidak ada bank</p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="p-4">
+      <div className="flex gap-4 mb-8 px-6">
+        <Input
+          placeholder="Masukan nama kamu"
+          className="px-4"
+        />
+        <Button>
+          <Search />
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {users.map((user) => (
+          <UserCard
+            key={user.id}
+            user={user}
+          />
+        ))}
+      </div>
     </div>
   );
 }
