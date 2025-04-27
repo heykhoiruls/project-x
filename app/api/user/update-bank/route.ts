@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(req: Request) {
   const { nik, bankName, bankNumber, email } = await req.json();
+  console.log("Received data:", { nik, bankName, bankNumber, email });
 
   try {
     await prisma.profile.upsert({
