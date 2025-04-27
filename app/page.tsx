@@ -1,11 +1,8 @@
-// app/page.tsx (Home)
-
 import { UserCard } from "@/components/maker/user-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { prisma } from "@/lib/prisma";
 import { Search } from "lucide-react";
-// ini komponen baru
 
 export default async function Home() {
   const users = await prisma.user.findMany({
