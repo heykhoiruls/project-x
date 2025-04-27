@@ -5,11 +5,12 @@ export default async function Home() {
   const users = await prisma.user.findMany({
     include: {
       Bank: true,
+      Profile: true,
     },
   });
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-sans">
+    <div className="grid grid-cols-3 gap-4">
       {users.map((user) => (
         <Card
           key={user.id}
@@ -17,7 +18,23 @@ export default async function Home() {
         >
           <CardContent>
             <h1 className="text-xl font-bold">{user.nama}</h1>
-            <h1 className="text-xl font-bold">{user.Bank?.nomor}</h1>
+            <h1 className="text-lg">{user.nomor}</h1>
+            <h1>{user.Profile?.gender}</h1>
+
+            <div className="mt-4">
+              {user.Bank.length > 0 ? (
+                user.Bank.map((bank) => (
+                  <p
+                    key={bank.id}
+                    className="text-gray-600"
+                  >
+                    {bank.nomor?.toNumber()}
+                  </p>
+                ))
+              ) : (
+                <p className="text-gray-400 italic">Tidak ada bank</p>
+              )}
+            </div>
           </CardContent>
         </Card>
       ))}
