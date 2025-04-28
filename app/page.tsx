@@ -4,14 +4,7 @@ import { Input } from "@/components/ui/input";
 import { prisma } from "@/lib/prisma";
 import { Search } from "lucide-react";
 
-export default async function Home() {
-  const users = await prisma.user.findMany({
-    include: {
-      Bank: true,
-      Profile: true,
-    },
-  });
-
+export default function Home({ users }) {
   return (
     <div className="p-4">
       <div className="flex gap-4 mb-8 px-6">
@@ -33,4 +26,20 @@ export default async function Home() {
       </div>
     </div>
   );
+}
+
+// Tambahkan ini di bawah
+export async function getServerSideProps() {
+  const users = await prisma.user.findMany({
+    include: {
+      Bank: true,
+      Profile: true,
+    },
+  });
+
+  return {
+    props: {
+      users,
+    },
+  };
 }
