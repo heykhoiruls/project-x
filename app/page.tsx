@@ -3,8 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { prisma } from "@/lib/prisma";
 import { Search } from "lucide-react";
+import { unstable_noStore } from "next/cache"; // Tambahkan ini
 
-export default function Home({ users }) {
+export default async function Home() {
+  unstable_noStore(); // Tambahkan ini, untuk force no-cache!!
+
+  const users = await prisma.user.findMany({
+    include: {
+      Bank: true,
+      Profile: true,
+    },
+  });
+
   return (
     <div className="p-4">
       <div className="flex gap-4 mb-8 px-6">
@@ -26,20 +36,4 @@ export default function Home({ users }) {
       </div>
     </div>
   );
-}
-
-// Tambahkan ini di bawah
-export async function getServerSideProps() {
-  const users = await prisma.user.findMany({
-    include: {
-      Bank: true,
-      Profile: true,
-    },
-  });
-
-  return {
-    props: {
-      users,
-    },
-  };
 }
