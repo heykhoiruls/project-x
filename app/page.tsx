@@ -17,15 +17,6 @@ export default async function Home() {
 
   return (
     <div className="p-4">
-      <div className="flex gap-4 mb-8 px-6">
-        <Input
-          placeholder="Masukan nama kamu"
-          className="px-4"
-        />
-        <Button>
-          <Search />
-        </Button>
-      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {users.map((user) => (
           <UserCard

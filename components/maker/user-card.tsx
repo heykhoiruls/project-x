@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { Edit } from "lucide-react";
+import { Dot, Edit, MenuIcon, MoreHorizontalIcon } from "lucide-react";
 
 export function UserCard({ user }: { user: any }) {
   const [bankName, setBankName] = useState(user.Bank?.name ?? "");
@@ -45,17 +45,20 @@ export function UserCard({ user }: { user: any }) {
   }
 
   return (
-    <Card>
-      <CardHeader className="flex justify-between">
+    <Card className="p-0">
+      <CardHeader className="flex justify-between p-4">
         <div className="px-1">
-          <CardTitle>{user.nama}</CardTitle>
-          <CardDescription>{user.nomor}</CardDescription>
+          <CardTitle className="text-sm">{user.nama}</CardTitle>
+          <CardDescription className="text-xs">{user.nomor}</CardDescription>
         </div>
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button size={"icon"}>
-              <Edit />
+            <Button
+              size={"icon"}
+              variant={"ghost"}
+            >
+              <MoreHorizontalIcon />
             </Button>
           </DialogTrigger>
 
@@ -99,7 +102,7 @@ export function UserCard({ user }: { user: any }) {
         </Dialog>
       </CardHeader>
 
-      <CardContent>
+      {/* <CardContent>
         <div className="flex items-center space-x-4 rounded-md border py-3 px-4">
           <div className="flex-1">
             <p className="text-sm font-bold text-muted-foreground">
@@ -113,7 +116,7 @@ export function UserCard({ user }: { user: any }) {
             {user.Profile?.email ?? "Email tidak ada"}
           </div>
         </div>
-      </CardContent>
+      </CardContent> */}
     </Card>
   );
 }
