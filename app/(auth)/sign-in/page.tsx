@@ -8,8 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
-import { Form } from "@/components/ui/form";
-import { toast } from "sonner"; // 👉 import toast
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
@@ -26,33 +25,19 @@ const PageSignIn = () => {
       body: JSON.stringify({ nomor: idEmployee }),
     });
 
+    if (res.ok) {
+      toast.success("Yeaay, berhasil masuk");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 500);
+    }
+
     if (!res.ok) {
       toast.error("User tidak ditemukan");
       return;
     }
 
-    // Cek apakah validasi sukses
-    const data = await res.json();
-    if (data.error) {
-      toast.error("User tidak ditemukan");
-      return;
-    }
-
-    // Simpan id karyawan di localStorage
     localStorage.setItem("idEmployee", idEmployee);
-
-    // Menyimulasikan verifikasi setelah login (bisa kamu ganti sesuai logika yang lebih nyata)
-    const authValidation = true; // Atur ke true jika kamu ingin login berhasil
-
-    if (authValidation) {
-      toast.success("Yeaay, berhasil masuk");
-      setTimeout(() => {
-        console.log("Redirecting to dashboard...");
-        router.push("/dashboard"); // Pastikan ini dipanggil
-      }, 500);
-    } else {
-      toast.error("Yaah, gagal masuk");
-    }
   };
 
   return (

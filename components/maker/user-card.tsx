@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { Dot, Edit, MenuIcon, MoreHorizontalIcon } from "lucide-react";
+import { MoreHorizontalIcon } from "lucide-react";
 
 export function UserCard({ user }: { user: any }) {
   const [bankName, setBankName] = useState(user.Bank?.name ?? "");
